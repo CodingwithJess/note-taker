@@ -29,23 +29,23 @@ const writeNotes = () => {
 };
 
 // HTML routes//
-app.get("/notes", function (req, res){
+app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname,"/public/notes.html"));
 });
 
-app.get("*", function (req, res){
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname,"/public/index.html"));
 });
 
 //API route//
-app.get("/api/notes", function(req,res){
+app.get("/api/notes", (req,res) => {
   readNotes();
   return res.json(notes);
 });
 
 // POST-should save note on req.body and add it to db.json then return new note to the client
 
-app.post("/api/notes", function (req,res){
+app.post("/api/notes", (req,res) => {
   newNote = req.body;
   id = notes.length + 1,
   newNote.id = id++,
@@ -55,7 +55,7 @@ app.post("/api/notes", function (req,res){
 })
 
 
-app.listen(PORT, function (){
+app.listen(PORT, () => {
   readNotes();
   console.log("App listening on PORT" + PORT);
 })
