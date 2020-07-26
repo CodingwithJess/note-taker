@@ -55,12 +55,11 @@ app.post("/api/notes", (req,res) => {
   res.json(notes);
 });
 
-app.delete("/api.notes/:id", (req, res) => {
+app.delete("/api/notes/:id", (req, res) => {
   var selectedID = parseInt(req.params.id);
   let selectedNote = notes.find(note => note.id === selectedID);
 
   notes.splice(notes.indexOf(selectedNote), 1);
-
   writeNotes();
   console.log("Note was deleted from DB.")
 
