@@ -22,6 +22,12 @@ const readNotes = () => {
   });
 };
 
+const writeNotes = () => {
+  fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), (err) => {
+      if (err) throw err;
+  });
+};
+
 // HTML routes//
 app.get("/notes", function (req, res){
   res.sendFile(path.join(__dirname,"/public/notes.html"));
@@ -36,6 +42,18 @@ app.get("/api/notes", function(req,res){
   readNotes();
   return res.json(notes);
 });
+
+// POST-should save note on req.body and add it to db.json then return new note to the client
+
+app.post("/api/notes", function (req,res){
+  newNote = req.body;
+  id = notes.length + 1,
+  newNote.id = id++,
+
+  writeNotes();
+  res.json(notes);
+})
+
 
 app.listen(PORT, function (){
   readNotes();
